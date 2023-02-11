@@ -1,5 +1,5 @@
 {
-  "name": "uni-vue3-vite-ts-template",
+  "name": "鱼信",
   "appid": "__UNI__DA16D5F",
   "description": "",
   "versionName": "1.0.0",
@@ -54,10 +54,18 @@
   "quickapp": {},
   /* 小程序特有相关 */
   "mp-weixin": {
-    "appid": "wxf326f1995627c671",
+    "appid": "wxa8523c73b90d4f9a",
     "setting": {
       "urlCheck": false
     },
+    "permission": {
+      "scope.userLocation": {
+        "desc": "钓点信息位置"
+      }
+    },
+    "requiredPrivateInfos": [
+      "getLocation"
+    ],
     "usingComponents": true
   },
   "mp-alipay": {

@@ -16,7 +16,13 @@
       "style": {
         "navigationBarTitleText": "我的"
       }
-    }
+    },
+	{
+		"path": "pages/fishDetail/index",
+		"style": {
+		  "navigationBarTitleText": "标点信息"
+		}
+	  }
   ],
   // "subPackages": [{
 	// 	"root": "pages/subPackage1",
@@ -27,7 +33,8 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "鱼信",
 		"navigationBarBackgroundColor": "#ffffff",
-		"backgroundColor": "#f8f8f8"
+		"backgroundColor": "#f8f8f8",
+		"navigationStyle": "custom"
 	},
 	"tabBar": {
 		"color": "#4D4D4D",

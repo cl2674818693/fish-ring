@@ -1,104 +1,89 @@
 <template>
-  <view class="home-page"> </view>
+  <map
+    class="map"
+    :longitude="state.longitude"
+    :latitude="state.latitude"
+    scale="14"
+    :show-location="true"
+    :markers="state.markers"
+    @markertap="markertap"
+  >
+  </map>
 </template>
 
 <script setup lang="ts">
-import { onShow } from '@dcloudio/uni-app'
+import { onLoad, onShow } from '@dcloudio/uni-app'
 import { reactive } from 'vue'
+import { AMapWX } from '@/libs/amap-wx.js'
+import { sdks } from '@/static/sdk/index'
 const state = reactive<{
-  arr: any
+  markers: any[] /* 标记点 */
+  myAmapFun: any /* 地图实例化的方法 */
+  latitude: number /* 纬度 */
+  longitude: number /* 经度 */
+  showID: number /* 用于记录当前那个点被点击了 */
 }>({
-  arr: {
-    accountid: '153',
-    adminid: '19',
-    cost_1: '10.00',
-    cost_2: '5.00',
-    cost_3: '5.00',
-    cost_4: '5.00',
-    cost_5: '5.00',
-    cost_6: '5.00',
-    cost_7: '5.00',
-    cost_8: '5.00',
-    id: '3',
-    mealname: '1格机优享套餐',
-    photo_1: 'https://xcmicsell.xcmic.com/images/meal/1496/1/990A870B-9C6A-4480-99E8-2180F0700A6D.jpeg',
-    photo_2: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_3: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_4: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_5: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_6: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_7: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    photo_8: 'https://xcmicsell.xcmic.com/images/goods.jpg',
-    placeid: '2484',
-    stock_1: '0',
-    stock_2: '0',
-    stock_3: '0',
-    stock_4: '0',
-    stock_5: '0',
-    stock_6: '0',
-    stock_7: '0',
-    stock_8: '0',
-    timer1: '3.00',
-    timer2: '12.00',
-    title: '“延时”黄金硬汉安全套2只',
-    title1: '电之初体验',
-    title2: '电之畅享',
-    title_2: 'no',
-    title_3: 'no',
-    title_4: 'no',
-    title_5: 'no',
-    title_6: 'no',
-    title_7: 'no',
-    title_8: 'no',
-    total: '38.00',
-    total1: '9.99',
-    total2: '15.00',
-    total_2: '99.00',
-    total_3: '99.00',
-    total_4: '99.00',
-    total_5: '99.00',
-    total_6: '99.00',
-    total_7: '99.00',
-    total_8: '99.00'
-  }
+  markers: [],
+  myAmapFun: null,
+  latitude: 0,
+  longitude: 0,
+  showID: 2
 })
-
-const getList = (data: any, iKey: string) => {
-  const newData = []
-  for (const key in data) {
-    if (key.split('_')[0] === iKey) {
-      newData.push({
-        [iKey]: data[key]
-      })
-    }
-  }
-  return newData
-}
-
-const getALL = () => {
-  const arrData: any = []
-  const keys = ['title', 'total', 'photo', 'stock']
-  const newDataAll: any = []
-  keys.forEach((key) => {
-    arrData.push(getList(state.arr, key))
+onLoad(() => {
+  initMP()
+})
+onShow(() => {})
+/* 初始化 */
+const initMP = () => {
+  uni.showLoading({
+    title: '获取信息中'
   })
-  for (var v = 0; v < arrData.length; v++) {
-    for (var i = 0; i < keys.length; i++) {
-      arrData[i].map((val: any, index: number) => {
-        // console.log(v,val);
-        // console.log(index);
-      })
-
-      // console.log(v,arrData[i]);
+  state.myAmapFun = new AMapWX({
+    key: sdks.key
+  })
+  // 获取位置
+  uni.getLocation({
+    type: 'gcj02',
+    success: function (res) {
+      console.log('res', res)
+      console.log('当前位置的经度：' + res.longitude)
+      console.log('当前位置的纬度：' + res.latitude)
+      state.longitude = res.longitude
+      state.latitude = res.latitude
+      state.markers = [
+        {
+          id: 2,
+          longitude: 113.91049,
+          latitude: 22.53112,
+          iconPath: '../../static/imgs/fishing.png',
+          width: 40,
+          height: 40
+        },
+        {
+          id: 3,
+          longitude: 113.90049,
+          latitude: 22.51112,
+          iconPath: '../../static/imgs/fishing.png',
+          width: 40,
+          height: 40
+        }
+      ]
+      uni.hideLoading()
     }
-  }
-
-  // console.log(arrData)
+  })
 }
-
-onShow(() => {
-  getALL()
-})
+/* 点击标点 */
+const markertap = (e: any) => {
+  console.log(e)
+  uni.navigateTo({
+    url: '/pages/fishDetail/index?id=1'
+  })
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.map {
+  width: 100%;
+  height: 100vh;
+}
+</style>
