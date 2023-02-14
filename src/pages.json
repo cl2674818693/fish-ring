@@ -1,34 +1,52 @@
 {
-  "easycom": {
-    "custom": {
-      "^u-(.*)": "vk-uview-ui/components/u-$1/u-$1.vue"
-    }
-  },
-  "pages": [
-    {
-      "path": "pages/home/index",
-      "style": {
-        "navigationBarTitleText": "鱼圈"
-      }
-    },
-    {
-      "path": "pages/me/index",
-      "style": {
-        "navigationBarTitleText": "我的"
-      }
-    },
-	{
-		"path": "pages/fishDetail/index",
-		"style": {
-		  "navigationBarTitleText": "标点信息"
+	"easycom": {
+		"custom": {
+			"^u-(.*)": "vk-uview-ui/components/u-$1/u-$1.vue"
 		}
-	  }
-  ],
-  // "subPackages": [{
-	// 	"root": "pages/subPackage1",
-	// 	"pages": [
-	// 	]
-	// }],
+	},
+	"pages": [
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "鱼圈"
+			}
+		},
+		{
+			"path": "pages/me/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/fishDetail/index",
+			"style": {
+				"navigationBarTitleText": "标点信息"
+			}
+		}
+	],
+	"subPackages": [
+		{
+			"root": "pages/subPackage",
+			"pages": [
+				{
+					"path": "addMap/index",
+					"style": {
+						"navigationBarTitleText": "添加标点信息",
+						"navigationStyle": "default",
+						"backgroundColor": "#f9f9f9"
+					}
+				},
+				{
+					"path": "mapList/index",
+					"style": {
+						"navigationBarTitleText": "申请列表",
+						"navigationStyle": "default",
+						"backgroundColor": "#f9f9f9"
+					}
+				}
+			]
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "鱼信",
@@ -41,7 +59,8 @@
 		"selectedColor": "#111111",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/home/index",
 				"iconPath": "static/tabBar/home.png",
 				"selectedIconPath": "static/tabBar/home_active.png",
@@ -55,5 +74,4 @@
 			}
 		]
 	}
-  
 }
